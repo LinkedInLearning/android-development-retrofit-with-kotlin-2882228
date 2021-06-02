@@ -1,5 +1,5 @@
-# COURSENAME
-This is the repository for the LinkedIn Learning course `course-name`. The full course is available from [LinkedIn Learning][lil-course-url].
+# Android Development: Retrofit with Kotlin
+This is the repository for the LinkedIn Learning course `Android Development: Retrofit with Kotlin`. The full course is available from [LinkedIn Learning][lil-course-url].
 
 ![course-name-alt-text][lil-thumbnail-url] 
 
@@ -13,9 +13,10 @@ Some branches will have a beginning and an end state. These are marked with the 
 
 ## Installing
 1. To use these exercise files, you must have the following installed:
-	- [list of requirements for course]
+	- Android Studio
+	- An emulator or a physical Android device
 2. Clone this repository into your local machine using the terminal (Mac), CMD (Windows), or a GUI tool like SourceTree.
-3. [Course-specific instructions]
+3. Import the project in Android Studio and run the application on a target device.
 
 
 [0]: # (Replace these placeholder URLs with actual course URLs)
