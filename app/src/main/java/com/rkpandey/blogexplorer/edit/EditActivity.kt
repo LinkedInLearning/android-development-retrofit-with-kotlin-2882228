@@ -1,5 +1,6 @@
 package com.rkpandey.blogexplorer.edit
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -33,6 +34,29 @@ class EditActivity : AppCompatActivity() {
             binding.tvUpdatedTitle.text = updatedPost.title
             binding.tvUpdatedContent.text = updatedPost.body
             binding.clPostResult.visibility = View.VISIBLE
+        })
+        viewModel.currentStatus.observe(this, Observer { currentStatus ->
+            when (currentStatus) {
+                ResultStatus.IDLE -> {
+                    binding.tvStatus.text = "Idle"
+                    binding.tvStatus.setTextColor(Color.GRAY)
+                }
+                ResultStatus.WORKING -> {
+                    binding.tvStatus.text = "Working..."
+                    binding.tvStatus.setTextColor(Color.MAGENTA)
+                }
+                ResultStatus.SUCCESS -> {
+                    binding.tvStatus.text = "Success!"
+                    binding.tvStatus.setTextColor(Color.GREEN)
+                }
+                ResultStatus.ERROR -> {
+                    binding.tvStatus.text = "Error :("
+                    binding.tvStatus.setTextColor(Color.RED)
+                }
+                else -> {
+                    throw IllegalStateException("Unexpected result state found")
+                }
+            }
         })
 
         binding.btnUpdatePut.setOnClickListener {
