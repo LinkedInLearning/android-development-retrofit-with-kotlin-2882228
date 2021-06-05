@@ -1,5 +1,6 @@
 package com.rkpandey.blogexplorer
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,9 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rkpandey.blogexplorer.databinding.ActivityMainBinding
+import com.rkpandey.blogexplorer.detail.DetailActivity
 import com.rkpandey.blogexplorer.models.Post
 
 private const val TAG = "MainActivity"
+const val EXTRA_POST_ID = "EXTRA_POST_ID"
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
@@ -33,7 +36,14 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         })
 
-        blogPostAdapter = BlogPostAdapter(this, blogPosts)
+        blogPostAdapter = BlogPostAdapter(this, blogPosts, object : BlogPostAdapter.ItemClickListener {
+            override fun onItemClick(post: Post) {
+                // navigate to new activity
+                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                intent.putExtra(EXTRA_POST_ID, post.id)
+                startActivity(intent)
+            }
+        })
         binding.rvPosts.adapter = blogPostAdapter
         binding.rvPosts.layoutManager = LinearLayoutManager(this)
         binding.button.setOnClickListener {

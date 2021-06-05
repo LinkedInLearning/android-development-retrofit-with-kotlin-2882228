@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.rkpandey.blogexplorer.EXTRA_POST_ID
 import com.rkpandey.blogexplorer.R
 import com.rkpandey.blogexplorer.databinding.ActivityDetailBinding
 
@@ -19,9 +22,26 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val postId = intent.getIntExtra(EXTRA_POST_ID, -1)
 
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        val postId = 1
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            binding.detailProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.clContent.visibility = if (isLoading) View.GONE else View.VISIBLE
+        })
+        viewModel.post.observe(this, Observer { post ->
+            binding.tvPostId.text = "Post #${post.id}"
+            binding.tvTitle.text = post.title
+            binding.tvBody.text = post.body
+        })
+
+        viewModel.user.observe(this, Observer { user ->
+            binding.tvUserName.text = user.name
+            binding.tvUserEmail.text = user.email
+            binding.tvUsername.text = user.username
+            binding.tvWebsite.text = user.website
+        })
+
         viewModel.getPostDetails(postId)
     }
 
