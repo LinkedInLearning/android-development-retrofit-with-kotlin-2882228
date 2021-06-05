@@ -3,9 +3,7 @@ package com.rkpandey.blogexplorer.api
 import com.rkpandey.blogexplorer.models.Post
 import com.rkpandey.blogexplorer.models.User
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface BlogApi {
     @GET("posts")
@@ -16,6 +14,10 @@ interface BlogApi {
 
     @GET("users/{id}")
     suspend fun getUser(@Path("id") userId: Int): User
+
+    // request body contains the complete new version
+    @PUT("posts/{id}")
+    suspend fun updatePost(@Path("id") postId: Int, @Body post: Post): Post
 
     @GET("posts/{id}")
     fun getPostViaCallback(@Path("id") postId: Int): Call<Post>
