@@ -23,6 +23,12 @@ interface BlogApi {
     @PATCH("posts/{id}")
     suspend fun patchPost(@Path("id") postId: Int, @Body params: Map<String, String>): Post
 
+    @DELETE("posts/{id}")
+    suspend fun deletePost(@Path("id") postId: Int)
+
+    @POST("posts/")
+    suspend fun createPost(@Body post: Post): Post
+
     @GET("posts/{id}")
     fun getPostViaCallback(@Path("id") postId: Int): Call<Post>
 
