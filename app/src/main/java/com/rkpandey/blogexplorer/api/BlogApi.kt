@@ -2,6 +2,7 @@ package com.rkpandey.blogexplorer.api
 
 import com.rkpandey.blogexplorer.models.Post
 import com.rkpandey.blogexplorer.models.User
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -15,4 +16,10 @@ interface BlogApi {
 
     @GET("users/{id}")
     suspend fun getUser(@Path("id") userId: Int): User
+
+    @GET("posts/{id}")
+    fun getPostViaCallback(@Path("id") postId: Int): Call<Post>
+
+    @GET("users/{id}")
+    fun getUserViaCallback(@Path("id") userId: Int): Call<User>
 }
