@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.rkpandey.blogexplorer.api.RetrofitInstance
 import com.rkpandey.blogexplorer.models.Post
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 private const val TAG = "EditViewModel"
 class EditViewModel : ViewModel() {
@@ -21,15 +22,32 @@ class EditViewModel : ViewModel() {
 
     fun updatePost(postId: Int, newPostData: Post) {
         viewModelScope.launch {
-            _post.value = null
-            val updatedPost = RetrofitInstance.api.updatePost(postId, newPostData)
-            Log.i(TAG, "updated post $updatedPost")
-            _post.value = updatedPost
+            try {
+                _post.value = null
+                _currentStatus.value = ResultStatus.WORKING
+                val updatedPost = RetrofitInstance.api.updatePost(postId, newPostData)
+                Log.i(TAG, "updated post $updatedPost")
+                _post.value = updatedPost
+                _currentStatus.value = ResultStatus.SUCCESS
+            } catch (e: Exception) {
+                _currentStatus.value = ResultStatus.ERROR
+            }
         }
     }
 
     fun patchPost(postId: Int, title: String, body: String) {
-        // TODO: send PATCH request
+        viewModelScope.launch {
+            try {
+                _post.value = null
+                _currentStatus.value = ResultStatus.WORKING
+                val patchedPost = RetrofitInstance.api.patchPost(postId, mapOf("title" to title, "body" to body))
+                Log.i(TAG, "patched post $patchedPost")
+                _post.value = patchedPost
+                _currentStatus.value = ResultStatus.SUCCESS
+            } catch (e: Exception) {
+                _currentStatus.value = ResultStatus.ERROR
+            }
+        }
     }
 
     fun deletePost(postId: Int) {

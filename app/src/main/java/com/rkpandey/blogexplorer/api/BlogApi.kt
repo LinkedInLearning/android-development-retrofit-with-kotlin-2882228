@@ -19,6 +19,10 @@ interface BlogApi {
     @PUT("posts/{id}")
     suspend fun updatePost(@Path("id") postId: Int, @Body post: Post): Post
 
+    // request body only needs to contain the specific changes to the resource
+    @PATCH("posts/{id}")
+    suspend fun patchPost(@Path("id") postId: Int, @Body params: Map<String, String>): Post
+
     @GET("posts/{id}")
     fun getPostViaCallback(@Path("id") postId: Int): Call<Post>
 
