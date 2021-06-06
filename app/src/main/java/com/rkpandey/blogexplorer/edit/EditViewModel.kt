@@ -58,7 +58,7 @@ class EditViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 _currentStatus.value = ResultStatus.WORKING
-                RetrofitInstance.api.deletePost(postId)
+                RetrofitInstance.api.deletePost("1234AuthToken", postId)
                 _post.value = null
                 _wasDeletionSuccessful.value = true
                 _currentStatus.value = ResultStatus.SUCCESS

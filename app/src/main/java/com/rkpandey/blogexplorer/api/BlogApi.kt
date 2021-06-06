@@ -9,6 +9,7 @@ interface BlogApi {
     @GET("posts")
     suspend fun getPosts(@Query("_page") page: Int = 1, @Query("_limit") limit: Int = 10): List<Post>
 
+    @Headers("Platform: Android")
     @GET("posts/{id}")
     suspend fun getPost(@Path("id") postId: Int): Post
 
@@ -24,7 +25,7 @@ interface BlogApi {
     suspend fun patchPost(@Path("id") postId: Int, @Body params: Map<String, String>): Post
 
     @DELETE("posts/{id}")
-    suspend fun deletePost(@Path("id") postId: Int)
+    suspend fun deletePost(@Header("Auth-Token") auth: String, @Path("id") postId: Int)
 
     @POST("posts/")
     suspend fun createPost(@Body post: Post): Post
