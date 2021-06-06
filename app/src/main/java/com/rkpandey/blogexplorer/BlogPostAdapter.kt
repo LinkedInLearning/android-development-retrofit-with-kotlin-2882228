@@ -37,7 +37,7 @@ class BlogPostAdapter(
         fun bind(post: Post) {
             tvId.text = "Post #${post.id}"
             tvTitle.text = post.title
-            tvBody.text = post.body
+            tvBody.text = post.content
             itemView.setOnClickListener {
                 itemClickListener.onItemClick(post)
             }

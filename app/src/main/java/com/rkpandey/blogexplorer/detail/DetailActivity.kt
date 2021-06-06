@@ -35,7 +35,7 @@ class DetailActivity : AppCompatActivity() {
         viewModel.post.observe(this, Observer { post ->
             binding.tvPostId.text = "Post #${post.id}"
             binding.tvTitle.text = post.title
-            binding.tvBody.text = post.body
+            binding.tvBody.text = post.content
         })
 
         viewModel.user.observe(this, Observer { user ->
