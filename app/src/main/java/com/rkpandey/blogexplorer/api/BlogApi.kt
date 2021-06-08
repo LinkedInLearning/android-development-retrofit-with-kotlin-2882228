@@ -30,6 +30,14 @@ interface BlogApi {
     @POST("posts/")
     suspend fun createPost(@Body post: Post): Post
 
+    @FormUrlEncoded
+    @POST("posts/")
+    suspend fun createPostUrlEncode(
+        @Field("userId") userId: Int,
+        @Field("title") title: String,
+        @Field("body") content: String
+    ): Post
+
     @GET("posts/{id}")
     fun getPostViaCallback(@Path("id") postId: Int): Call<Post>
 

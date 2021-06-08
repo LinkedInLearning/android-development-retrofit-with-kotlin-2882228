@@ -27,6 +27,8 @@ class EditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        createPost()
+
         val post = intent.getSerializableExtra(EXTRA_POST) as Post
         title = "Editing Post #${post.id}"
         binding.etTitle.setText(post.title)
@@ -102,6 +104,9 @@ class EditActivity : AppCompatActivity() {
             val localNewPost = Post(2, 32, "My post title", "Body of post id #32")
             val newPost = RetrofitInstance.api.createPost(localNewPost)
             Log.i(TAG, "New post $newPost")
+            val urlEncodedPost =
+                RetrofitInstance.api.createPostUrlEncode(4, "New title", "Post content")
+            Log.i(TAG, "URL encoded post: $urlEncodedPost")
         }
     }
 }
