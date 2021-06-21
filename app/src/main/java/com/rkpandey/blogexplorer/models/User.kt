@@ -1,5 +1,8 @@
 package com.rkpandey.blogexplorer.models
 
+import androidx.annotation.Keep
+
+@Keep
 data class User(
     val id: Int,
     val name: String,
