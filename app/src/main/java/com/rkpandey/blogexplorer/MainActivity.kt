@@ -29,8 +29,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.posts.observe(this, Observer { posts ->
             Log.i(TAG, "Number of posts: ${posts.size}")
+            val numElements = blogPosts.size
+            blogPosts.clear()
             blogPosts.addAll(posts)
             blogPostAdapter.notifyDataSetChanged()
+            binding.rvPosts.smoothScrollToPosition(numElements)
         })
         viewModel.isLoading.observe(this, Observer { isLoading ->
             Log.i(TAG, "isLoading $isLoading")
