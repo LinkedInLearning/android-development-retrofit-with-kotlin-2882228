@@ -58,7 +58,7 @@ class DetailActivity : AppCompatActivity() {
             Log.i(TAG, "Navigate to edit screen")
             viewModel.post.observe(this, Observer { post ->
                 val intent = Intent(this, EditActivity::class.java)
-                // intent.putExtra(EXTRA_POST, post)
+                 intent.putExtra(EXTRA_POST, post)
                 startActivity(intent)
             })
         }
