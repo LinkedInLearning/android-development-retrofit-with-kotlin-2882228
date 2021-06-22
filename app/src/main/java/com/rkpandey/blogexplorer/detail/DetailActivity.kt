@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.rkpandey.blogexplorer.EXTRA_POST_ID
 import com.rkpandey.blogexplorer.R
 import com.rkpandey.blogexplorer.databinding.ActivityDetailBinding
 import com.rkpandey.blogexplorer.edit.EditActivity
@@ -24,9 +25,9 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val postId = intent.getIntExtra(EXTRA_POST_ID, -1)
 
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        val postId = 1
         viewModel.isLoading.observe(this, Observer { isLoading ->
             binding.detailProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.clContent.visibility = if (isLoading) View.GONE else View.VISIBLE
