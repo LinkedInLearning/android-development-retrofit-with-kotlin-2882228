@@ -22,6 +22,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.posts.observe(this, Observer { posts ->
+            Log.i(TAG, "Number of posts: ${posts.size}")
+            blogPosts.addAll(posts)
+            blogPostAdapter.notifyDataSetChanged()
+        })
         viewModel.isLoading.observe(this, Observer { isLoading ->
             Log.i(TAG, "isLoading $isLoading")
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
